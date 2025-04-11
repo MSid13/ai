@@ -1,0 +1,972 @@
+<html lang="en"><head>
+    <title>Tic Tac Toe Game</title>
+</head>
+
+<body>
+    <style>
+        .sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+.GameButtons {
+            position: relative;
+            display: inline-block;
+            padding: 10px 10px;
+            font-weight: bold;
+            background: rgb(242, 240, 240);
+            color: black;
+            text-decoration: none;
+            border-radius: 10px;
+            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            border: 2px solid black;
+            font-size: 18px;
+        }
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+.whitecolortext{
+    color: #ffffff;
+}
+#main {
+  transition: margin-left .5s;
+  padding: 20px;
+}
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+        .game-board {
+            display: grid;
+            grid-template-rows: 200px 200px 200px;
+            grid-template-columns: 200px 200px 200px;
+        }
+
+        body {
+            justify-content: center;
+        }
+
+        .box {
+            border: 1px solid #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 200px;
+
+        }
+
+        .NavigationBar {
+            height: 40px;
+            background-position: center;
+            color: white;
+            padding: 5px 5px;
+            text-decoration: none;
+            background-color: black;
+            background-size: cover;
+            background-position: center;
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+
+
+        }
+
+        .NavigationButtons {
+            position: relative;
+            display: inline-block;
+            padding: 10px 10px;
+            font-weight: bold;
+            background: white;
+            color: black;
+            text-decoration: none;
+            border-radius: 10px;
+            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+        }
+
+        .GameButtons {
+            position: relative;
+            display: inline-block;
+            padding: 10px 10px;
+            font-weight: bold;
+            background: rgb(242, 240, 240);
+            color: black;
+            text-decoration: none;
+            border-radius: 10px;
+            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            border: 2px solid black;
+            font-size: 18px;
+        }
+
+        /* Style for the toggle switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            border-radius: 50%;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+        }
+
+        input:checked+.slider {
+            background-color: #4CAF50;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(26px);
+        }
+
+        .cpbutton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .popup-panel {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent background */
+            z-index: 9999;
+            /* Makes the panel appear on top */
+        }
+
+        .panel-content {
+            background: white;
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-btn {
+            font-size: 30px;
+            border: none;
+            background: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: red;
+        }
+
+        .h2cp {
+            margin-bottom: 20px;
+        }
+
+
+        .head {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .closebutton1{
+    color: #ffffff;
+    background-color: #111;
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.playerp{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 40px;
+}
+    </style>
+    <div class="NavigationBar">
+        <a href="iindex.html" class="NavigationButtons">Calculator</a>
+        <a href="tictactoe.html" class="NavigationButtons">Tic-Tac-Toe</a>
+    </div>
+    <br><br><br><br>
+    <h1 class="head"> Tic Tac Toe Game</h1>
+    
+    <div class="game-board" id="game-board">
+        <div class="box" id="cell1"></div>
+        <div class="box" id="cell2"></div>
+        <div class="box" id="cell3"></div>
+        <div class="box" id="cell4"></div>
+        <div class="box" id="cell5"></div>
+        <div class="box" id="cell6"></div>
+        <div class="box" id="cell7"></div>
+        <div class="box" id="cell8"></div>
+        <div class="box" id="cell9"></div>
+        <input type="hidden" id="current-player" value="X">
+        <input type="hidden" id="pass" value="B">
+        <input type="hidden" id="player" value="F">
+    </div>
+    <br>
+    <p id="playerp" class="playerp"></p>
+
+    <button class="GameButtons" onclick="validate()">Validate</button>
+    <button class="GameButtons" type="button" id="cleargame" onclick="clear1()">Start a new game!</button>
+    <a href="#div_id" class="GameButtons">Play with Computer</a>
+    <button class="GameButtons" onclick="goback()">Undo Move</button>
+    <div id="mySidenav" class="sidenav">
+        <p dir="rtl" onclick="closeNav()" class="closebutton1">X&nbsp;</p>
+        <h2 class="whitecolortext">Control Panel</h2>
+        <button class="GameButtons" onclick="validate()">Validate Board</button>
+        <button class="GameButtons" onclick="clearlocalstorage()">Clear localStorage</button>
+      </div>
+      <span onclick="openNav()" class="GameButtons">Open Control Panel</span>
+            <div id="main">     
+      </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+    <div id="div_id">
+        <p>Choose the level for your computer: </p>
+        <button href="#game-board" class="GameButtons" onclick="playcomputereasy()">EASY</button>
+        <button href="#game-board" class="GameButtons" onclick="playcomputer()">HARD</button>
+        <a href="#game-board" class="GameButtons">RETURN TO GAME</a>
+    </div>
+    <br><br><br><br><br><br><br>
+
+<script>
+    move = 0
+    localStorage.clear();
+    const divs = document.querySelectorAll('.box');
+
+    divs.forEach(div => {
+        div.onclick = function () {
+            move += 1
+            currentplayer = document.getElementById("current-player").value
+            if (currentplayer == 'X') {
+                document.getElementById(div.id).innerText = 'O'
+                document.getElementById('current-player').value = 'O'
+                auto()
+                if (document.getElementById('player').value == 'T') {
+                    computer1()
+                }
+                else if (document.getElementById('player').value == 'E') {
+                    document.getElementById('player').value == 'E'
+                    computer2()
+                }
+                else {
+                    document.getElementById('player').value == 'F'
+                }
+            }
+            else {
+                document.getElementById(div.id).innerText = 'X'
+                document.getElementById('current-player').value = 'X'
+                auto()
+                if (document.getElementById('player').value == 'T') {
+                    computer1()
+                }
+                else if (document.getElementById('player').value == 'E') {
+                    document.getElementById('player').value == 'E'
+                    computer2()
+                }
+                else if (document.getElementById('player').value == 'F') {
+                    document.getElementById('player').value == 'F'
+                }
+                else {
+                    document.getElementById('player').value == 'F'
+                }
+            }
+            savemove()
+        };
+    });
+
+
+    function clearlocalstorage(){
+        localStorage.clear();
+    }
+    function goback() {
+        move -= 1;
+        if (move == 0) {
+            document.getElementById('cell1').innerText = ""
+            document.getElementById('cell2').innerText = ""
+            document.getElementById('cell3').innerText = ""
+            document.getElementById('cell4').innerText = ""
+            document.getElementById('cell5').innerText = ""
+            document.getElementById('cell6').innerText = ""
+            document.getElementById('cell7').innerText = ""
+            document.getElementById('cell8').innerText = ""
+            document.getElementById('cell9').innerText = ""
+        }
+        else if (move == 1) {
+            document.getElementById('cell1').innerText = localStorage.getItem('cell11');
+            document.getElementById('cell2').innerText = localStorage.getItem('cell21');
+            document.getElementById('cell3').innerText = localStorage.getItem('cell31');
+            document.getElementById('cell4').innerText = localStorage.getItem('cell41');
+            document.getElementById('cell5').innerText = localStorage.getItem('cell51');
+            document.getElementById('cell6').innerText = localStorage.getItem('cell61');
+            document.getElementById('cell7').innerText = localStorage.getItem('cell71');
+            document.getElementById('cell8').innerText = localStorage.getItem('cell81');
+            document.getElementById('cell9').innerText = localStorage.getItem('cell91');
+        }
+        else if (move == 2) {
+            document.getElementById('cell1').innerText = localStorage.getItem('cell12');
+            document.getElementById('cell2').innerText = localStorage.getItem('cell22');
+            document.getElementById('cell3').innerText = localStorage.getItem('cell32');
+            document.getElementById('cell4').innerText = localStorage.getItem('cell42');
+            document.getElementById('cell5').innerText = localStorage.getItem('cell52');
+            document.getElementById('cell6').innerText = localStorage.getItem('cell62');
+            document.getElementById('cell7').innerText = localStorage.getItem('cell72');
+            document.getElementById('cell8').innerText = localStorage.getItem('cell82');
+            document.getElementById('cell9').innerText = localStorage.getItem('cell92');
+        }
+        else if (move == 3) {
+            document.getElementById('cell1').innerText = localStorage.getItem('cell13');
+            document.getElementById('cell2').innerText = localStorage.getItem('cell23');
+            document.getElementById('cell3').innerText = localStorage.getItem('cell33');
+            document.getElementById('cell4').innerText = localStorage.getItem('cell43');
+            document.getElementById('cell5').innerText = localStorage.getItem('cell53');
+            document.getElementById('cell6').innerText = localStorage.getItem('cell63');
+            document.getElementById('cell7').innerText = localStorage.getItem('cell73');
+            document.getElementById('cell8').innerText = localStorage.getItem('cell83');
+            document.getElementById('cell9').innerText = localStorage.getItem('cell93');
+        }
+        else if (move == 4) {
+            document.getElementById('cell1').innerText = localStorage.getItem('cell14');
+            document.getElementById('cell2').innerText = localStorage.getItem('cell24');
+            document.getElementById('cell3').innerText = localStorage.getItem('cell34');
+            document.getElementById('cell4').innerText = localStorage.getItem('cell44');
+            document.getElementById('cell5').innerText = localStorage.getItem('cell54');
+            document.getElementById('cell6').innerText = localStorage.getItem('cell64');
+            document.getElementById('cell7').innerText = localStorage.getItem('cell74');
+            document.getElementById('cell8').innerText = localStorage.getItem('cell84');
+            document.getElementById('cell9').innerText = localStorage.getItem('cell94');
+        }
+        else if (move == 5) {
+            document.getElementById('cell1').innerText = localStorage.getItem('cell15');
+            document.getElementById('cell2').innerText = localStorage.getItem('cell25');
+            document.getElementById('cell3').innerText = localStorage.getItem('cell35');
+            document.getElementById('cell4').innerText = localStorage.getItem('cell45');
+            document.getElementById('cell5').innerText = localStorage.getItem('cell55');
+            document.getElementById('cell6').innerText = localStorage.getItem('cell65');
+            document.getElementById('cell7').innerText = localStorage.getItem('cell75');
+            document.getElementById('cell8').innerText = localStorage.getItem('cell85');
+            document.getElementById('cell9').innerText = localStorage.getItem('cell95');
+        }
+        else if (move == 6) {
+            document.getElementById('cell1').innerText = localStorage.getItem('cell16');
+            document.getElementById('cell2').innerText = localStorage.getItem('cell26');
+            document.getElementById('cell3').innerText = localStorage.getItem('cell36');
+            document.getElementById('cell4').innerText = localStorage.getItem('cell46');
+            document.getElementById('cell5').innerText = localStorage.getItem('cell56');
+            document.getElementById('cell6').innerText = localStorage.getItem('cell66');
+            document.getElementById('cell7').innerText = localStorage.getItem('cell76');
+            document.getElementById('cell8').innerText = localStorage.getItem('cell86');
+            document.getElementById('cell9').innerText = localStorage.getItem('cell96');
+        }
+        else if (move == 7) {
+            document.getElementById('cell1').innerText = localStorage.getItem('cell17');
+            document.getElementById('cell2').innerText = localStorage.getItem('cell27');
+            document.getElementById('cell3').innerText = localStorage.getItem('cell37');
+            document.getElementById('cell4').innerText = localStorage.getItem('cell47');
+            document.getElementById('cell5').innerText = localStorage.getItem('cell57');
+            document.getElementById('cell6').innerText = localStorage.getItem('cell67');
+            document.getElementById('cell7').innerText = localStorage.getItem('cell77');
+            document.getElementById('cell8').innerText = localStorage.getItem('cell87');
+            document.getElementById('cell9').innerText = localStorage.getItem('cell97');
+        }
+        else if (move == 8) {
+            document.getElementById('cell1').innerText = localStorage.getItem('cell18');
+            document.getElementById('cell2').innerText = localStorage.getItem('cell28');
+            document.getElementById('cell3').innerText = localStorage.getItem('cell38');
+            document.getElementById('cell4').innerText = localStorage.getItem('cell48');
+            document.getElementById('cell5').innerText = localStorage.getItem('cell58');
+            document.getElementById('cell6').innerText = localStorage.getItem('cell68');
+            document.getElementById('cell7').innerText = localStorage.getItem('cell78');
+            document.getElementById('cell8').innerText = localStorage.getItem('cell88');
+            document.getElementById('cell9').innerText = localStorage.getItem('cell98');
+        }
+        else if (move == 9) {
+            document.getElementById('cell1').innerText = localStorage.getItem('cell19');
+            document.getElementById('cell2').innerText = localStorage.getItem('cell29');
+            document.getElementById('cell3').innerText = localStorage.getItem('cell39');
+            document.getElementById('cell4').innerText = localStorage.getItem('cell49');
+            document.getElementById('cell5').innerText = localStorage.getItem('cell59');
+            document.getElementById('cell6').innerText = localStorage.getItem('cell69');
+            document.getElementById('cell7').innerText = localStorage.getItem('cell79');
+            document.getElementById('cell8').innerText = localStorage.getItem('cell89');
+            document.getElementById('cell9').innerText = localStorage.getItem('cell99');
+            move = 0
+        }
+
+    }
+
+
+    function savemove() {
+        if (move == 1) {
+            localStorage.setItem('cell11', document.getElementById('cell1').innerText);
+            localStorage.setItem('cell21', document.getElementById('cell2').innerText);
+            localStorage.setItem('cell31', document.getElementById('cell3').innerText);
+            localStorage.setItem('cell41', document.getElementById('cell4').innerText);
+            localStorage.setItem('cell51', document.getElementById('cell5').innerText);
+            localStorage.setItem('cell61', document.getElementById('cell6').innerText);
+            localStorage.setItem('cell71', document.getElementById('cell7').innerText);
+            localStorage.setItem('cell81', document.getElementById('cell8').innerText);
+            localStorage.setItem('cell91', document.getElementById('cell9').innerText);
+        }
+        else if (move == 2) {
+            localStorage.setItem('cell12', document.getElementById('cell1').innerText);
+            localStorage.setItem('cell22', document.getElementById('cell2').innerText);
+            localStorage.setItem('cell32', document.getElementById('cell3').innerText);
+            localStorage.setItem('cell42', document.getElementById('cell4').innerText);
+            localStorage.setItem('cell52', document.getElementById('cell5').innerText);
+            localStorage.setItem('cell62', document.getElementById('cell6').innerText);
+            localStorage.setItem('cell72', document.getElementById('cell7').innerText);
+            localStorage.setItem('cell82', document.getElementById('cell8').innerText);
+            localStorage.setItem('cell92', document.getElementById('cell9').innerText);
+        }
+        else if (move == 3) {
+            localStorage.setItem('cell13', document.getElementById('cell1').innerText);
+            localStorage.setItem('cell23', document.getElementById('cell2').innerText);
+            localStorage.setItem('cell33', document.getElementById('cell3').innerText);
+            localStorage.setItem('cell43', document.getElementById('cell4').innerText);
+            localStorage.setItem('cell53', document.getElementById('cell5').innerText);
+            localStorage.setItem('cell63', document.getElementById('cell6').innerText);
+            localStorage.setItem('cell73', document.getElementById('cell7').innerText);
+            localStorage.setItem('cell83', document.getElementById('cell8').innerText);
+            localStorage.setItem('cell93', document.getElementById('cell9').innerText);
+        }
+        else if (move == 4) {
+            localStorage.setItem('cell14', document.getElementById('cell1').innerText);
+            localStorage.setItem('cell24', document.getElementById('cell2').innerText);
+            localStorage.setItem('cell34', document.getElementById('cell3').innerText);
+            localStorage.setItem('cell44', document.getElementById('cell4').innerText);
+            localStorage.setItem('cell54', document.getElementById('cell5').innerText);
+            localStorage.setItem('cell64', document.getElementById('cell6').innerText);
+            localStorage.setItem('cell74', document.getElementById('cell7').innerText);
+            localStorage.setItem('cell84', document.getElementById('cell8').innerText);
+            localStorage.setItem('cell94', document.getElementById('cell9').innerText);
+        }
+        else if (move == 5) {
+            localStorage.setItem('cell15', document.getElementById('cell1').innerText);
+            localStorage.setItem('cell25', document.getElementById('cell2').innerText);
+            localStorage.setItem('cell35', document.getElementById('cell3').innerText);
+            localStorage.setItem('cell45', document.getElementById('cell4').innerText);
+            localStorage.setItem('cell55', document.getElementById('cell5').innerText);
+            localStorage.setItem('cell65', document.getElementById('cell6').innerText);
+            localStorage.setItem('cell75', document.getElementById('cell7').innerText);
+            localStorage.setItem('cell85', document.getElementById('cell8').innerText);
+            localStorage.setItem('cell95', document.getElementById('cell9').innerText);
+        }
+        else if (move == 6) {
+            localStorage.setItem('cell16', document.getElementById('cell1').innerText);
+            localStorage.setItem('cell26', document.getElementById('cell2').innerText);
+            localStorage.setItem('cell36', document.getElementById('cell3').innerText);
+            localStorage.setItem('cell46', document.getElementById('cell4').innerText);
+            localStorage.setItem('cell56', document.getElementById('cell5').innerText);
+            localStorage.setItem('cell66', document.getElementById('cell6').innerText);
+            localStorage.setItem('cell76', document.getElementById('cell7').innerText);
+            localStorage.setItem('cell86', document.getElementById('cell8').innerText);
+            localStorage.setItem('cell96', document.getElementById('cell9').innerText);
+        }
+        else if (move == 7) {
+            localStorage.setItem('cell17', document.getElementById('cell1').innerText);
+            localStorage.setItem('cell27', document.getElementById('cell2').innerText);
+            localStorage.setItem('cell37', document.getElementById('cell3').innerText);
+            localStorage.setItem('cell47', document.getElementById('cell4').innerText);
+            localStorage.setItem('cell57', document.getElementById('cell5').innerText);
+            localStorage.setItem('cell67', document.getElementById('cell6').innerText);
+            localStorage.setItem('cell77', document.getElementById('cell7').innerText);
+            localStorage.setItem('cell87', document.getElementById('cell8').innerText);
+            localStorage.setItem('cell97', document.getElementById('cell9').innerText);
+        }
+        else if (move == 8) {
+            localStorage.setItem('cell18', document.getElementById('cell1').innerText);
+            localStorage.setItem('cell28', document.getElementById('cell2').innerText);
+            localStorage.setItem('cell38', document.getElementById('cell3').innerText);
+            localStorage.setItem('cell48', document.getElementById('cell4').innerText);
+            localStorage.setItem('cell58', document.getElementById('cell5').innerText);
+            localStorage.setItem('cell68', document.getElementById('cell6').innerText);
+            localStorage.setItem('cell78', document.getElementById('cell7').innerText);
+            localStorage.setItem('cell88', document.getElementById('cell8').innerText);
+            localStorage.setItem('cell98', document.getElementById('cell9').innerText);
+        }
+        else if (move == 8) {
+            localStorage.setItem('cell19', document.getElementById('cell1').innerText);
+            localStorage.setItem('cell29', document.getElementById('cell2').innerText);
+            localStorage.setItem('cell39', document.getElementById('cell3').innerText);
+            localStorage.setItem('cell49', document.getElementById('cell4').innerText);
+            localStorage.setItem('cell59', document.getElementById('cell5').innerText);
+            localStorage.setItem('cell69', document.getElementById('cell6').innerText);
+            localStorage.setItem('cell79', document.getElementById('cell7').innerText);
+            localStorage.setItem('cell89', document.getElementById('cell8').innerText);
+            localStorage.setItem('cell99', document.getElementById('cell9').innerText);
+        }
+    }
+
+
+    function playcomputer() {
+        document.getElementById('player').value = 'T'
+    }
+    function playcomputereasy() {
+        document.getElementById('player').value = 'E'
+    }
+    function auto() {
+        cell1 = document.getElementById('cell1').innerText
+        cell2 = document.getElementById('cell2').innerText
+        cell3 = document.getElementById('cell3').innerText
+        cell4 = document.getElementById('cell4').innerText
+        cell5 = document.getElementById('cell5').innerText
+        cell6 = document.getElementById('cell6').innerText
+        cell7 = document.getElementById('cell7').innerText
+        cell8 = document.getElementById('cell8').innerText
+        cell9 = document.getElementById('cell9').innerText
+        let winner12 = " has won!";
+        paragraph = document.getElementById("playerp");
+
+        if (cell1 != "" && cell2 != "" && cell3 != "" && cell1 == cell2 && cell2 == cell3) {
+            alert(cell1 + " has won!")
+            paragraph.textContent = cell1 + winner12
+
+        }
+        else if (cell4 != "" && cell5 != "" && cell6 != "" && cell4 == cell5 && cell5 == cell6) {
+            alert(cell6 + " has won!")
+            paragraph.textContent = cell6 + winner12
+
+        }
+        else if (cell7 != "" && cell8 != "" && cell9 != "" && cell7 == cell8 && cell8 == cell9) {
+            alert(cell7 + " has won!")
+            paragraph.textContent = cell7 + winner12
+
+        }
+        else if (cell1 != "" && cell4 != "" && cell7 != "" && cell1 == cell4 && cell4 == cell7) {
+            alert(cell7 + " has won!")
+            paragraph.textContent = cell7 + winner12
+
+        }
+        else if (cell2 != "" && cell5 != "" && cell8 != "" && cell2 == cell5 && cell5 == cell8) {
+            alert(cell8 + " has won!")
+            paragraph.textContent = cell8 + winner12
+
+        }
+        else if (cell3 != "" && cell6 != "" && cell9 != "" && cell3 == cell6 && cell6 == cell9) {
+            alert(cell6 + " has won!")
+            paragraph.textContent = cell6 + winner12
+        }
+        else if (cell1 != "" && cell5 != "" && cell9 != "" && cell1 == cell5 && cell5 == cell9) {
+            alert(cell5 + " has won!")
+            paragraph.textContent = cell5 + winner12
+        }
+        else if (cell3 != "" && cell5 != "" && cell7 != "" && cell3 == cell5 && cell5 == cell7) {
+            alert(cell5 + " has won!")
+            paragraph.textContent = cell5 + winner12
+        }
+        else {
+            document.getElementById("pass").value = " "
+        }
+    }
+
+    function validate() {
+        cell1 = document.getElementById('cell1').innerText
+        cell2 = document.getElementById('cell2').innerText
+        cell3 = document.getElementById('cell3').innerText
+        cell4 = document.getElementById('cell4').innerText
+        cell5 = document.getElementById('cell5').innerText
+        cell6 = document.getElementById('cell6').innerText
+        cell7 = document.getElementById('cell7').innerText
+        cell8 = document.getElementById('cell8').innerText
+        cell9 = document.getElementById('cell9').innerText
+        let winner12 = " has won!";
+        paragraph = document.getElementById("playerp");
+
+
+
+
+        if (cell1 === "" || cell2 === "" || cell3 === "" || cell4 === "" || cell5 === "" || cell6 === "" || cell7 === "" || cell8 === "" || cell9 === "") {
+
+            alert('You have not finsihed the game. ')
+
+        }
+        else if (cell1 == cell2 && cell2 == cell3) {
+            alert(cell1 + " has won!")
+            
+            paragraph.textContent = cell1 + winner12
+        }
+        else if (cell4 == cell5 && cell5 == cell6) {
+            alert(cell6 + " has won!")
+            paragraph.textContent = cell6 + winner12
+        }
+        else if (cell7 == cell8 && cell8 == cell9) {
+            alert(cell7 + " has won!")
+            paragraph.textContent = cell7 + winner12
+        }
+        else if (cell1 == cell4 && cell4 == cell7) {
+            alert(cell7 + " has won!")
+            paragraph.textContent = cell7 + winner12
+        }
+        else if (cell2 == cell5 && cell4 == cell8) {
+            alert(cell8 + " has won!")
+            paragraph.textContent = cell8 + winner12
+        }
+        else if (cell3 == cell6 && cell6 == cell9) {
+            alert(cell6 + " has won!")
+            paragraph.textContent = cell1 + winner12
+        }
+        else if (cell1 == cell5 && cell5 == cell9) {
+            alert(cell5 + " has won!")
+            paragraph.textContent = cell5 + winner12
+        }
+        else if (cell3 == cell5 && cell5 == cell7) {
+            alert(cell5 + " has won!")
+            paragraph.textContent = cell5 + winner12
+        }
+        else {
+            alert("A winner could not be found.")
+
+        }
+    }
+    function clear1() {
+        document.getElementById('cell1').innerText = ""
+        document.getElementById('cell2').innerText = ""
+        document.getElementById('cell3').innerText = ""
+        document.getElementById('cell4').innerText = ""
+        document.getElementById('cell5').innerText = ""
+        document.getElementById('cell6').innerText = ""
+        document.getElementById('cell7').innerText = ""
+        document.getElementById('cell8').innerText = ""
+        document.getElementById('cell9').innerText = ""
+        document.getElementById('current-player').value = 'X'
+        paragraph = document.getElementById("playerp");
+        paragraph.textContent = ""
+        move = 0
+        localStorage.clear();
+
+    }
+
+    function computer1() {
+
+        waitForIt();
+        cell1 = document.getElementById('cell1').innerText
+        cell2 = document.getElementById('cell2').innerText
+        cell3 = document.getElementById('cell3').innerText
+        cell4 = document.getElementById('cell4').innerText
+        cell5 = document.getElementById('cell5').innerText
+        cell6 = document.getElementById('cell6').innerText
+        cell7 = document.getElementById('cell7').innerText
+        cell8 = document.getElementById('cell8').innerText
+        cell9 = document.getElementById('cell9').innerText
+        if (cell1 == "" && cell2 == "X" && cell3 == "X") {
+            document.getElementById('cell1').innerText = "X"
+            
+        }
+        else if (cell1 == "X" && cell2 == "" && cell3 == "X") {
+            document.getElementById('cell2').innerText = "X"
+        }
+        else if (cell1 == "X" && cell2 == "X" && cell3 == "") {
+            document.getElementById('cell3').innerText = "X"
+        }
+
+        else if (cell4 == "" && cell5 == "X" && cell6 == "X") {
+            document.getElementById('cell4').innerText = "X"
+        }
+        else if (cell4 == "X" && cell5 == "" && cell6 == "X") {
+            document.getElementById('cell5').innerText = "X"
+        }
+        else if (cell4 == "X" && cell5 == "X" && cell6 == "") {
+            document.getElementById('cell6').innerText = "X"
+        }
+
+        else if (cell1 == "" && cell4 == "X" && cell7 == "X") {
+            document.getElementById('cell1').innerText = "X"
+        }
+        else if (cell1 == "X" && cell4 == "" && cell7 == "X") {
+            document.getElementById('cell4').innerText = "X"
+        }
+        else if (cell1 == "X" && cell4 == "X" && cell7 == "") {
+            document.getElementById('cell7').innerText = "X"
+        }
+
+        else if (cell2 == "" && cell5 == "X" && cell8 == "X") {
+            document.getElementById('cell2').innerText = "X"
+        }
+        else if (cell2 == "X" && cell5 == "" && cell8 == "X") {
+            document.getElementById('cell5').innerText = "X"
+        }
+        else if (cell2 == "X" && cell5 == "X" && cell8 == "") {
+            document.getElementById('cell8').innerText = "X"
+        }
+
+        else if (cell2 == "" && cell5 == "X" && cell8 == "X") {
+            document.getElementById('cell2').innerText = "X"
+        }
+        else if (cell2 == "X" && cell5 == "" && cell8 == "X") {
+            document.getElementById('cell5').innerText = "X"
+        }
+        else if (cell2 == "X" && cell5 == "X" && cell8 == "") {
+            document.getElementById('cell8').innerText = "X"
+        }
+
+        else if (cell3 == "" && cell6 == "X" && cell9 == "X") {
+            document.getElementById('cell3').innerText = "X"
+        }
+        else if (cell3 == "X" && cell6 == "" && cell9 == "X") {
+            document.getElementById('cell6').innerText = "X"
+        }
+        else if (cell3 == "X" && cell6 == "X" && cell9 == "") {
+            document.getElementById('cell9').innerText = "X"
+        }
+
+        else if (cell1 == "" && cell5 == "X" && cell9 == "X") {
+            document.getElementById('cell1').innerText = "X"
+        }
+        else if (cell1 == "X" && cell5 == "" && cell9 == "X") {
+            document.getElementById('cell5').innerText = "X"
+        }
+        else if (cell1 == "X" && cell5 == "X" && cell9 == "") {
+            document.getElementById('cell9').innerText = "X"
+        }
+
+        else if (cell3 == "" && cell5 == "X" && cell7 == "X") {
+            document.getElementById('cell3').innerText = "X"
+        }
+        else if (cell3 == "X" && cell5 == "" && cell7 == "X") {
+            document.getElementById('cell5').innerText = "X"
+        }
+        else if (cell3 == "X" && cell5 == "X" && cell7 == "") {
+            document.getElementById('cell7').innerText = "X"
+        }
+
+        if (cell1 == "" && cell2 == "O" && cell3 == "O") {
+            document.getElementById('cell1').innerText = "X"
+        }
+        else if (cell1 == "O" && cell2 == "" && cell3 == "O") {
+            document.getElementById('cell2').innerText = "X"
+        }
+        else if (cell1 == "O" && cell2 == "O" && cell3 == "") {
+            document.getElementById('cell3').innerText = "X"
+        }
+
+        else if (cell4 == "" && cell5 == "O" && cell6 == "O") {
+            document.getElementById('cell4').innerText = "X"
+        }
+        else if (cell4 == "O" && cell5 == "" && cell6 == "O") {
+            document.getElementById('cell5').innerText = "X"
+        }
+        else if (cell4 == "O" && cell5 == "O" && cell6 == "") {
+            document.getElementById('cell6').innerText = "X"
+        }
+
+        else if (cell1 == "" && cell4 == "O" && cell7 == "O") {
+            document.getElementById('cell1').innerText = "X"
+        }
+        else if (cell1 == "O" && cell4 == "" && cell7 == "O") {
+            document.getElementById('cell4').innerText = "X"
+        }
+        else if (cell1 == "O" && cell4 == "O" && cell7 == "") {
+            document.getElementById('cell7').innerText = "X"
+        }
+
+        else if (cell2 == "" && cell5 == "O" && cell8 == "O") {
+            document.getElementById('cell2').innerText = "X"
+        }
+        else if (cell2 == "O" && cell5 == "" && cell8 == "O") {
+            document.getElementById('cell5').innerText = "X"
+        }
+        else if (cell2 == "O" && cell5 == "O" && cell8 == "") {
+            document.getElementById('cell8').innerText = "X"
+        }
+
+        else if (cell2 == "" && cell5 == "O" && cell8 == "O") {
+            document.getElementById('cell2').innerText = "X"
+        }
+        else if (cell2 == "O" && cell5 == "" && cell8 == "O") {
+            document.getElementById('cell5').innerText = "X"
+        }
+        else if (cell2 == "O" && cell5 == "O" && cell8 == "") {
+            document.getElementById('cell8').innerText = "X"
+        }
+
+        else if (cell3 == "" && cell6 == "O" && cell9 == "O") {
+            document.getElementById('cell3').innerText = "X"
+        }
+        else if (cell3 == "O" && cell6 == "" && cell9 == "O") {
+            document.getElementById('cell6').innerText = "X"
+        }
+        else if (cell3 == "O" && cell6 == "O" && cell9 == "") {
+            document.getElementById('cell9').innerText = "X"
+        }
+
+        else if (cell1 == "" && cell5 == "O" && cell9 == "O") {
+            document.getElementById('cell1').innerText = "X"
+        }
+        else if (cell1 == "O" && cell5 == "" && cell9 == "O") {
+            document.getElementById('cell5').innerText = "X"
+        }
+        else if (cell1 == "O" && cell5 == "O" && cell9 == "") {
+            document.getElementById('cell9').innerText = "X"
+        }
+
+        else if (cell3 == "" && cell5 == "O" && cell7 == "O") {
+            document.getElementById('cell3').innerText = "X"
+        }
+        else if (cell3 == "O" && cell5 == "" && cell7 == "O") {
+            document.getElementById('cell5').innerText = "X"
+        }
+        else if (cell3 == "O" && cell5 == "O" && cell7 == "") {
+            document.getElementById('cell7').innerText = "X"
+        }
+
+
+
+        else if (cell5 == "") {
+            document.getElementById('cell5').innerText = "X"
+        }
+        else if (cell1 == "") {
+            document.getElementById('cell1').innerText = "X"
+        }
+        else if (cell2 == "") {
+            document.getElementById('cell2').innerText = "X"
+        }
+        else if (cell3 == "") {
+            document.getElementById('cell3').innerText = "X"
+        }
+        else if (cell4 == "") {
+            document.getElementById('cell4').innerText = "X"
+        }
+        else if (cell6 == "") {
+            document.getElementById('cell6').innerText = "X"
+        }
+        else if (cell7 == "") {
+            document.getElementById('cell7').innerText = "X"
+        }
+        else if (cell8 == "") {
+            document.getElementById('cell8').innerText = "X"
+        }
+        else if (cell9 == "") {
+            document.getElementById('cell9').innerText = "X"
+        }
+        else {
+            alert("The game is a tie! ")
+            paragraph.textContent = "The game is a tie!";
+        }
+        document.getElementById('current-player').value = 'X'
+        auto()
+
+    }
+    function computer2() {
+        cell1 = document.getElementById('cell1').innerText
+        cell2 = document.getElementById('cell2').innerText
+        cell3 = document.getElementById('cell3').innerText
+        cell4 = document.getElementById('cell4').innerText
+        cell5 = document.getElementById('cell5').innerText
+        cell6 = document.getElementById('cell6').innerText
+        cell7 = document.getElementById('cell7').innerText
+        cell8 = document.getElementById('cell8').innerText
+        cell9 = document.getElementById('cell9').innerText
+        if (cell1 == "") {
+            document.getElementById('cell1').innerText = "X"
+        }
+        else if (cell2 == "") {
+            document.getElementById('cell2').innerText = "X"
+        }
+        else if (cell3 == "") {
+            document.getElementById('cell3').innerText = "X"
+        }
+        else if (cell4 == "") {
+            document.getElementById('cell4').innerText = "X"
+        }
+        else if (cell5 == "") {
+            document.getElementById('cell5').innerText = "X"
+        }
+        else if (cell6 == "") {
+            document.getElementById('cell6').innerText = "X"
+        }
+        else if (cell7 == "") {
+            document.getElementById('cell7').innerText = "X"
+        }
+        else if (cell8 == "") {
+            document.getElementById('cell8').innerText = "X"
+        }
+        else if (cell9 == "") {
+            document.getElementById('cell9').innerText = "X"
+        }
+        else {
+            alert("The game is a tie.  ")
+        }
+        document.getElementById('current-player').value = 'X'
+        auto()
+    }
+    // Creating a sleep function using Promises
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // Using async/await with the sleep function
+    async function waitForIt() {
+        console.log("First message");
+        await sleep(3000); // Wait for 2 seconds
+        console.log("Second message (after 2 seconds)");
+        console.log("Third message");
+    }
+    function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft = "0";
+  document.body.style.backgroundColor = "white";
+}
+</script>
+
+</body></html>
