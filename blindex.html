@@ -1,21 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!--
-  
-  Run the following in terminal to start backend:
-  
-  Terminal #1:
-
-  ollama serve
-
-  Terminal #2:
-
-  ollama pull llama3
-  
-  ollama run llama3
-  
-  -->
   <meta charset="UTF-8" />
   <title>LLaMA Chat</title>
   <link rel="icon" href="data:,">
@@ -130,7 +115,6 @@
       cursor: pointer;
       margin-left: auto;
     }
-
     pre {
       background: #333;
       color: #f8f8f2;
@@ -140,7 +124,6 @@
       font-family: monospace;
       position: relative;
     }
-
     .copy-btn {
       position: absolute;
       top: 0.5rem;
@@ -153,16 +136,13 @@
       font-size: 0.8rem;
       padding: 0.25rem 0.5rem;
     }
-
     .copy-btn:hover {
       background: #777;
     }
-
     #stopBtn {
       display: none;
       background-color: #e53935;
     }
-
     #stopBtn:hover {
       background-color: #c62828;
     }
@@ -184,6 +164,7 @@
     const chat = document.getElementById('chat');
     let autoScroll = true;
     let controller = null;
+    let conversationHistory = [];
 
     function scrollToBottom() {
       chat.scrollTop = chat.scrollHeight;
@@ -209,6 +190,7 @@
       if (!prompt) return;
 
       renderMessage('user', prompt);
+      conversationHistory.push(`User: ${prompt}`);
       input.value = '';
       input.disabled = true;
 
@@ -226,7 +208,7 @@
         const res = await fetch('http://localhost:11434/api/generate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ model: 'llama3', prompt, stream: true }),
+          body: JSON.stringify({ model: 'llama3', prompt: conversationHistory.join('\n'), stream: true }),
           signal: controller.signal
         });
 
@@ -258,6 +240,7 @@
           aiMsg.innerText = "⚠️ Error: " + err.message;
         }
       } finally {
+        conversationHistory.push(`AI: ${fullResponse}`);
         controller = null;
         input.disabled = false;
         input.focus();
@@ -315,4 +298,3 @@
   </script>
 </body>
 </html>
-  
